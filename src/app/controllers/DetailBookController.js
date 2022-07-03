@@ -15,32 +15,60 @@ class DetailBookController {
 
     //[GET] /detailbook/create
     create(req, res, next) {
-       res.render('detailbook/create')
+        const email = req.signedCookies.email
+        if(email){
+            res.render('detailbook/create')
+        }else{
+            res.redirect('/')
+        }
+       
     }
 
      //[POST] /detailbook/store
     store(req, res, next) {
-        const book = new Book(req.body);
-        book.save()
-            .then(() => res.redirect('/'))
-            
-            .catch(error=>{
+        const email = req.signedCookies.email;
+        console.log(req.file.path.split('/'))
+         //var img = req.file.path.split('/').slice(3).join('/')
+         //console.log(img)
+        // const book = new Book({
+        //     name: req.body.name,
+        //     author: req.body.author,
+        //     description: req.body.description,
+        //     introduce: req.body.introduce,
+        //     img: img,
+        //     email: email
+        // });
+        // book.save()
+        //     .then(() => res.redirect('/'))
+        //     .catch(error=>{
 
-            })
+        //     })
      }
 
      //[GET] /detailbook/:id/edit
     edit(req, res, next) {
-        Book.findById(req.params.id)
-        .then((book)=> {
-            res.render('detailbook/edit', {book: mongooseToObject(book) })
-        })
-        .catch(next)
-        
+
+        const email = req.signedCookies.email
+        if(email){
+            Book.findById(req.params.id)
+            .then((book)=> {
+                res.render('detailbook/edit', {book: mongooseToObject(book) })
+            })
+            .catch(next)    
+        }else{
+            Book.findById(req.params.id)
+            .then((book)=> {
+                res.render('detailbook/show', {book: mongooseToObject(book)})
+            })
+            //res.render('detailbook/show', {book: mongooseToObject(book)}, {message: 'Bạn cần phải đăng nhập vào hệ thống!!!!!' })
+
+        }
+       
      }
 
      //[PUT] /detailbook/:id
     update(req, res, next) {
+        
         Book.updateOne({ _id: req.params.id }, req.body)
             .then(()=> res.redirect('/'))
             .catch(next)
@@ -49,9 +77,18 @@ class DetailBookController {
 
       //[DELETE] /detailbook/:id
     delete(req, res, next) {
-        Book.deleteOne({ _id: req.params.id })
+        const email = req.signedCookies.email;
+        if(email){
+            Book.deleteOne({ _id: req.params.id })
             .then(()=> res.redirect('/'))
             .catch(next)
+        }else{
+            Book.findById(req.params.id)
+            .then((book)=> {
+                res.render('detailbook/show', {book: mongooseToObject(book)})
+            })
+        }
+       
         
      }
 

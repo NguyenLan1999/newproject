@@ -8,6 +8,7 @@ class SiteController {
         Book.find({})
 
             .then((books) => {
+               
                 res.render('home', {
                     books: mutipleMongooseToObject(books),
                 });
@@ -15,9 +16,22 @@ class SiteController {
             .catch(next);
     }
 
-    search(req, res) {
-        res.render('search');
+    search(req, res, next) {
+       
+       
+
+        Book.find({ 'name': {'$regex': req.query.q.toLowerCase(),$options:'i'}})
+            .then((books) => {
+                res.render('search', { books: mutipleMongooseToObject(books)});
+            })
+            .catch(next);
+
+        
+       
+
     }
+
 }
+
 
 module.exports = new SiteController();

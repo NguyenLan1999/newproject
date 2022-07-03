@@ -1,6 +1,6 @@
 <div class="mt-4">
     <h3>TẠO BÀI VIẾT</h3>
-    <form method="post" action="/detailbook/store">
+    <form method="post" action="/detailbook/store" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Tên sách</label>
             <input type="text" class="form-control" id="name" name="name">
@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <label for="img">Hình ảnh</label>
-            <input type="text" class="form-control" id="img" name="img">
+            <input class="form-control-file" type="file" id="img" name="img">
         </div>
         <button type="submit" class="btn btn-primary">Thêm bài viết</button>
     </form>
