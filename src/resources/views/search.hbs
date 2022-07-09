@@ -1,17 +1,20 @@
 
 <div class="mt-4">
+    <div class="form-search">
     <div class="row margin-bottom-40">
         <div class="col-md-3 col-sm-4">
-            <ul class="list-group">
+            {{!-- <ul class="list-group">
                 <li class="list-group-item">Kết quả tìm kiếm</li>
                 
-            </ul>
+            </ul> --}}
+            <h3>Kết quả tìm kiếm</h3>
         </div>
         <div class="col-md-9 col-sm-8">
              {{#each books}}
             <div class="ggh">
                 <div class="card">
                     <div class="card-body">
+                        <img class="img-responsive" style="width: 16rem; margin-bottom: 10px" src="{{this.img}}" alt="image cap">
                         <a href="/detailBook/{{this.slug}}">
                             <h5 class="card-title">{{this.name}}</h5>
                         </a>
@@ -23,8 +26,10 @@
             </div>
             {{/each}}
 
-        </div>
+        </div>   
         
+    </div>
            
     </div>
 </div>
+  {{> footer}}

@@ -1,6 +1,6 @@
 <div class="mt-4">
-    <h3>CHỈNH SỬA BÀI VIẾT</h3>
-    <form method="post" action="/detailbook/{{book._id}}?_method=PUT">
+    <h3 class="text-center">CHỈNH SỬA BÀI VIẾT</h3>
+    <form method="post" action="/detailbook/{{book._id}}?_method=PUT" enctype="multipart/form-data"  class="form-status">
         <div class="form-group">
             <label for="name">Tên sách</label>
             <input type="text" class="form-control" value="{{book.name}}" id="name" name="name">
@@ -19,8 +19,11 @@
         </div>
         <div class="form-group">
             <label for="img">Hình ảnh</label>
-            <input type="text" class="form-control" value="{{book.img}}" id="img" name="img">
+            {{!-- <img src = "{{book.img}}" value="{{book.img}}"  > --}}
+            <input  class="form-control-file" type="file" id="img" name="img" >
         </div>
         <button type="submit" class="btn btn-primary">Lưu lại</button>
     </form>
 </div>
+
+  {{> footer}}

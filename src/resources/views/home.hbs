@@ -1,36 +1,42 @@
-
-<div class="mt-4">
-    <div class="btn-plus">
-        <button type="button" style="background-color: rgb(253, 36, 36); border-color: rgb(253, 36, 36)" onclick="location.href='/detailbook/create'" class="btn btn-primary btn-lg">Thêm bài viết</button>
-    </div>
-    
-</div>
-<div class="mt-4">
-    <div class="row margin-bottom-40">
-        <div class="col-md-3 col-sm-4">
-            <ul class="list-group">
-                <li class="list-group-item">Review những cuốn sách</li>
-                
-            </ul>
+ <div class="mt-4">
+    {{#if message }}
+        <div class="alert alert-{{message.type}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert"> &times;</button>
+            <strong>{{message.intro}}</strong> {{message.message}}
         </div>
-        <div class="col-md-9 col-sm-8">
-             {{#each books}}
-            <div class="ggh">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="/detailBook/{{this.slug}}">
-                            <h5 class="card-title">{{this.name}}</h5>
-                        </a>
-                        <h6>Tác giả: {{this.author}}</h6>
-                        <p>Mô tả: {{this.introduce}}</p>
-                        <a href="/detailBook/{{this.slug}}"class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
+    {{/if}}
+</div>
+{{> slide}}
+<div class="container">
+   
 
-            {{/each}}
+    <div class="mt-4">
+        <div class="btn-plus">
+            <button type="button" style="background-color: rgb(36, 130, 253); border-color: rgb(36, 130, 253)" onclick="location.href='/detailbook/create'" class="btn btn-primary btn-lg">Thêm bài viết</button>
         </div>
         
-           
+    </div>
+    <div class="mt-4">
+        <h1>BÀI VIẾT</h1>
+        <div class="container book">
+            <div class="row">
+            {{#each books}}
+                <div class="col-md-3">
+                <div class="card" style="width: 16rem;">
+                    <img class="img-responsive" src="{{this.img}}" alt="Card image cap">
+                    <div class="card-body">
+                         <a href="/detailBook/{{this.slug}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
+                        <a href="/detailBook/{{this.slug}}" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                    </div>  
+                </div>
+            {{/each}}
+        </div>
+        </div>
+    
     </div>
 </div>
+
+  {{> footer}}

@@ -34,7 +34,7 @@ class UsersController {
                    
                 //  })
             }else{
-                res.render('user/login', {message: 'Tên đăng nhập hoặc mật khẩu không chính xác!' });
+                res.render('user/login', {message: 'Tên đăng nhập hoặc mật khẩu không chính xác! Vui lòng nhập lại!!!' });
             }
         }) 
         .catch(next);

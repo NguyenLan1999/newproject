@@ -1,4 +1,4 @@
-h1 {
+h2 {
   margin-top: 1cm;
   color: #360202; }
 
@@ -9,13 +9,53 @@ h6 {
   color: blue; }
 
 .app {
-  background-color: #fcfaf7; }
+  background-color: #f7f3ee; }
+
+footer {
+  background-color: #8a8988; }
 
 .container {
-  background-color: #f7f3ee; }
+  background-color: #f7f3ee;
+  margin-bottom: 20px; }
 
 .btn-plus {
   right: inherit; }
 
 label {
   font-weight: bold; }
+
+.slide {
+  margin-top: 20px;
+  height: 400px;
+  overflow: hidden; }
+
+.card {
+  margin-top: 20px; }
+
+.user-login-register {
+  border: 1px solid #c8c8c8;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+  background: rgba(200, 200, 200, 0.1);
+  border-radius: 4px;
+  top: 50px;
+  margin-left: 25%;
+  margin-right: 25%; }
+
+.form-user {
+  margin-left: 30px;
+  margin-right: 30px; }
+
+.form-status {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 20px; }
+
+.form-show {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 100px; }
+
+.form-search {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 100px; }

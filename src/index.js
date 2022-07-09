@@ -7,6 +7,7 @@ var flash = require('connect-flash');
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const middleware = require('./middlewares/session')
+const session = require('express-session')
 const cookie = require('cookie-parser')
 const app = express();
 const port = 3000;
@@ -19,7 +20,10 @@ const db = require('./config/db');
 
 
 db.connect();
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('src/public'));
+
 
 app.use(
     express.urlencoded({
@@ -32,11 +36,16 @@ app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cookieParser('chuoibatky'));
+app.use(cookieParser('secret'));
 app.use(cookieParser())
 app.use(middleware.session)
+app.use(session({cookie: {maxAge: null}}))
 
-
+app.use((req, res, next)=>{
+    res.locals.message= req.session.message;
+    delete req.session.message;
+    next()
+})
 //app.use(passport.initialize());
 // http logger
 //app.use(morgan('combined'))
