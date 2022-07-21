@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 
 const detailBookController = require('../app/controllers/DetailBookController');
 
+
 router.get('/create', detailBookController.create);
 router.post('/store', upload.single('img'), detailBookController.store);
 router.get('/:id/edit', detailBookController.edit);

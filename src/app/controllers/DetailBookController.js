@@ -5,26 +5,34 @@ const { mongooseToObject } = require('../../util/mongoose');
 
 class DetailBookController {
     show(req, res, next) {
+        const email = req.signedCookies.email
         Book.findOne({ slug: req.params.slug })
             .then((book) => {
-                res.render('detailbook/show', { book: mongooseToObject(book) });
+                res.render('detailbook/show', { 
+                    book: mongooseToObject(book),
+                    email: email });
             })
 
             .catch(next);
     }
 
+
+   
+
     //[GET] /detailbook/create
     create(req, res, next) {
         const email = req.signedCookies.email
         if(email){
-            res.render('detailbook/create')
+            res.render('detailbook/create', {
+                email: email
+            })
         }else{
             req.session.message ={
-                type: 'warning',
+                type: 'danger',
                 intro: 'Thông báo lỗi!',
                 message: 'Bạn chưa đăng nhập vào hệ thống!!!!'
             }
-            res.redirect('/')
+            res.redirect('back')
         }
        
     }
@@ -32,7 +40,6 @@ class DetailBookController {
      //[POST] /detailbook/store
     store(req, res, next) {
         const email = req.signedCookies.email;
-        
           var img = req.file.path.split('\\').slice(2).join('/')
          // console.log(img)
         const book = new Book({
@@ -44,7 +51,13 @@ class DetailBookController {
             email: email
         });
         book.save()
-            .then(() => res.redirect('/'))
+            .then(() => {
+                req.session.message ={
+                    type: 'success',
+                    intro: 'Thông báo!',
+                    message: 'Bài viết đã được thêm thành công!!!!'
+                }
+                res.redirect('/')})
             .catch(error=>{
 
             })
@@ -59,7 +72,7 @@ class DetailBookController {
         .then((book)=>{
             if(!email){
                 req.session.message ={
-                    type: 'warning',
+                    type: 'danger',
                     intro: 'Thông báo lỗi!',
                     message: 'Bạn chưa đăng nhập vào hệ thống!!!!'
                 }
@@ -68,7 +81,7 @@ class DetailBookController {
                 res.redirect('back')
             }else{
                
-                res.render('detailbook/edit', { book: mongooseToObject(book) })
+                res.render('detailbook/edit', { book: mongooseToObject(book), email: email })
             }
         })
        
@@ -87,7 +100,13 @@ class DetailBookController {
             img: img,
             email: email
         })
-                .then(()=> res.redirect('/'))
+                .then(()=> {
+                    req.session.message ={
+                        type: 'success',
+                        intro: 'Thông báo!',
+                        message: 'Bài viết được cập nhật thành công!!!!'
+                    }
+                    res.redirect('/')})
                 .catch(next)
         // Book.updateOne({ _id: req.params.id }, req.body, {img: img,
         //     email: email})
@@ -117,11 +136,17 @@ class DetailBookController {
 
         if(email){
             Book.deleteOne({_id: req.params.id})
-            .then(()=> res.redirect('/'))
+            .then(()=> {
+                req.session.message ={
+                    type: 'success',
+                    intro: 'Thông báo!',
+                    message: 'Bài viết đã được xóa thành công!!!!'
+                }
+                res.redirect('/')})
             .catch()
         }else{
             req.session.message ={
-                type: 'warning',
+                type: 'danger',
                 intro: 'Thông báo lỗi!',
                 message: 'Bạn chưa đăng nhập vào hệ thống!!!!'
             }

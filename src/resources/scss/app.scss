@@ -13,7 +13,7 @@ h6 {
     background-color: rgb(247, 243, 238);
 }
 footer{
-    background-color: rgb(138, 137, 136);
+    background-color: rgb(207, 206, 204);
 }
 .container{
     background-color: rgb(247, 243, 238);
@@ -60,5 +60,18 @@ label{
     margin-right: 10%; 
     margin-bottom: 100px;
 }
+html {
 
-
+    height: 100%;
+  
+  }
+  
+body {
+  
+    min-height: 100%;
+  
+  }
+footer{
+    position: sticky;
+    top: 100%,
+}

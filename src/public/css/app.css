@@ -12,7 +12,7 @@ h6 {
   background-color: #f7f3ee; }
 
 footer {
-  background-color: #8a8988; }
+  background-color: #cfcecc; }
 
 .container {
   background-color: #f7f3ee;
@@ -59,3 +59,13 @@ label {
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 100px; }
+
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%; }
+
+footer {
+  position: sticky;
+  top: 100%; }
