@@ -14,15 +14,18 @@
         <div class="row">
         <div class="col-lg-3">
             <img width="80" height="300"  class="card-img-top" src="{{book.img}}" alt="Alt text">
+            {{#if isTrue }}
             <div class="mt-4">
                  <button type="button" onclick="location.href='/detailbook/{{book._id}}/edit'" class="btn btn-primary btn-lg btn-block">Chỉnh sửa bài viết</button>
                 <button type="button" class="btn btn-secondary btn-lg btn-block" data-id="{{book._id}}" data-toggle="modal" data-target="#deleteBook">Xóa bài viết</button>
             </div>
+            {{/if}}
         </div>
         <div class="col-lg-9">
             
             <h3>{{book.name}}</h3>
             <h6> Tác giả: {{book.author}}</h6>
+            {{!-- <h6>Người viết: {{book.user.username}}</h6> --}}
             <h6>Cảm nhận về sách</h6>
             <p>{{book.description}}</p>
             
@@ -30,6 +33,31 @@
     </div>
     </div>
     
+</div>
+<hr>
+
+
+
+<div class="container">
+    <form action="/detailbook/{{book._id}}/comment" method="POST">
+        <div class="form-floating">
+            <h3 for="content">Bình luận</h3>
+            <textarea rows="3" class="form-control"  id="content" name="content" placeholder="Để lại bình luận ở đây......................"></textarea>
+        </div>
+         <div class="form-floating pt-3">
+            <button type="submit" class="btn rounded-0 btn-primary w-100">Thêm bình luận</button>
+        </div>
+    </form>
+   
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {{book.declaim}}
+        </div>
+    </div>
 </div>
   {{> footer}}
 

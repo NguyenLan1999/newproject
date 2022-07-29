@@ -1,4 +1,13 @@
 <div class="mt-4">
+    {{#if message }}
+        <div class="alert alert-{{message.type}}" role="alert">
+        <button type="button" class="close" data-dismiss="alert"> &times;</button>
+        <strong>{{message.intro}}</strong> {{message.message}}
+        </div>
+
+    {{/if}}
+</div>
+<div class="mt-4">
     <h3 class="text-center">TẠO BÀI VIẾT</h3>
     <form method="post" action="/detailbook/store" enctype="multipart/form-data" class="form-status">
         <div class="form-group">

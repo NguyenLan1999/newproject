@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const slug = require('mongoose-slug-generator');
 const Schema = mongoose.Schema;
 const User = require('./users')
+const Comments = require('./comments')
 
 mongoose.plugin(slug);
 
@@ -14,12 +15,17 @@ const Book = new Schema({
     introduce: String,
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
     },
-    email: {
+    declaim: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    },
+    email:{
         type: String,
-        ref: 'users'
-    },
+        ref: 'User'
+    }
+   
 }, {
     timestamps: true,
 });

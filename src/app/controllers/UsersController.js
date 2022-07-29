@@ -28,7 +28,7 @@ class UsersController {
             res.redirect('back')
         }
         if(!username || !password){
-            //res.render('user/login', {message: 'Tên đăng nhập và mật khẩu không được để trống!!!' });
+            
             req.session.message ={
                 type: 'danger',
                 intro: 'Thông báo lỗi!',
@@ -36,9 +36,7 @@ class UsersController {
             }
             res.redirect('back')
         }
-        // if(!password){
-        //     res.render('user/login', {message: 'Vui lòng nhập tên đăng nhập và mật khẩu!!!'})
-        // }
+       
         User.findOne({
             username: username,
             password: password
@@ -46,20 +44,16 @@ class UsersController {
         .then(user =>{
             if(user){
                res.cookie('email', user.email, {signed: true})
-               //res.render({email: req.signedCookies.email})
+               res.cookie('_id', user._id, {signed: true})
                req.session.message ={
                 type: 'success',
                 intro: 'Thông báo!',
                 message: 'Bạn đã đăng nhập thành công!!!!'
                 }
                res.redirect('/')
-            //    res.render('home', {
-            //     email: req.signedCookies.email
-            //    })
 
                
             }else{
-               // res.render('user/login', {message: 'Tên đăng nhập hoặc mật khẩu không chính xác!!!' });
                req.session.message ={
                 type: 'danger',
                 intro: 'Thông báo lỗi!',
@@ -76,11 +70,11 @@ class UsersController {
         res.render('user/register')
     }
     postRegister(req, res, next){
+        var sessionId = req.signedCookies.sessionId;
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
         if(!username && !password && !email){
-            //res.render('user/register', {message: 'Vui lòng điền đầy đủ thông tin'})
             req.session.message ={
                 type: 'danger',
                 intro: 'Thông báo lỗi!',
@@ -89,7 +83,6 @@ class UsersController {
             res.redirect('back')
         }
         if(!username || !password || !email ){
-            //res.render('user/register', {message: 'Tên đăng nhâp, email không được để trống!!!'})
             req.session.message ={
                 type: 'danger',
                 intro: 'Thông báo lỗi!',
@@ -101,14 +94,12 @@ class UsersController {
         User.findOne({email: email})
         .then(user =>{
             if(user){
-               // res.render('user/register', {message: 'Email này đã được sử dụng!!!!'});
                req.session.message ={
                 type: 'danger',
                 intro: 'Thông báo lỗi!',
                 message: 'Email này đã được sử dụng!!!!!!!'
             }
             res.redirect('back')
-                //res.json("Email này đã được sử dụng");
             }else{
                 
                 return User.create({
@@ -118,6 +109,7 @@ class UsersController {
                })
                 .then(user => {
                 res.cookie('email', user.email, {signed: true})
+                res.cookie('_id', user._id, {signed: true})
                 req.session.message ={
                     type: 'success',
                     intro: 'Thông báo!',
@@ -128,17 +120,14 @@ class UsersController {
                    
             }
         })
-        // .then(user => {
-        //     res.cookie('email', user.email, {signed: true})
-        //     console.log('Tạo tài khoản thành công')
-        //     res.redirect('/')
-        // })
         .catch(next)   
     }
 
     view(req, res, next){
         const email = req.signedCookies.email
-        User.findOne({email: email})
+        const id = req.signedCookies._id
+        User.findById(id)
+        //User.findOne({email: email})
         .then(user=>{
             res.render('user/view', {user : mongooseToObject(user), email: email})
         })
@@ -147,8 +136,10 @@ class UsersController {
     }
 
     edit(req, res,next){
+        const id = req.signedCookies._id
         const email = req.signedCookies.email
-        User.findOne({email: email})
+        //User.findOne({email: email})
+        User.findById(id)
         .then(user=>{
             res.render('user/viewEdit', {
                 user: mongooseToObject(user),
@@ -160,6 +151,7 @@ class UsersController {
 
     postEdit(req, res, next){
         const email = req.signedCookies.email
+        //const _id = req.signedCookies._id
         const username = req.body.username
         const phone = req.body.phone
         const address = req.body.address
@@ -182,17 +174,23 @@ class UsersController {
             res.redirect('back')
         }
 
-        User.updateOne({email: email}, {
+        // User.findUpdate({email: email}, {
+        //     username: username,
+        //     phone: phone,
+        //     address: address,
+        //     history: history,
+        // })
+        User.findOneAndUpdate({email: email}, {
             username: username,
             phone: phone,
             address: address,
-            history: history,
+            history: history
         })
         .then(()=>{
             req.session.message ={
                 type: 'success',
                 intro: 'Thông báo!',
-                message: 'Bài viết được cập nhật thành công!!!!'
+                message: 'Thông tin cá nhân được cập nhật thành công!!!!'
             }
             res.redirect('/user/view')
         })
