@@ -8,10 +8,10 @@ const Comment = new Schema({
         type: String,
         ref: 'User'
     },
-    bookId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Book'
-    },
+    // bookId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Book'
+    // },
     }
     ,{
         timestamps: true,

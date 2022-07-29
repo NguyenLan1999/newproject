@@ -22,7 +22,7 @@ class UsersController {
             //res.render('user/login', {message: 'Vui lòng nhập tên đăng nhập và mật khẩu!!!' });
             req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: 'Vui lòng nhập tên đăng nhập !!!!'
             }
             res.redirect('back')
@@ -31,7 +31,7 @@ class UsersController {
             
             req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: ' Tên đăng nhập và mật khẩu không được để trống!!!!'
             }
             res.redirect('back')
@@ -56,7 +56,7 @@ class UsersController {
             }else{
                req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: 'Tên đăng nhập hoặc mật khẩu không chính xác !!!!'
                 }
                 res.redirect('back')
@@ -77,7 +77,7 @@ class UsersController {
         if(!username && !password && !email){
             req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: 'Vui lòng điền đầy đủ thông tin!!!!'
             }
             res.redirect('back')
@@ -85,7 +85,7 @@ class UsersController {
         if(!username || !password || !email ){
             req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: 'Tên đăng nhâp, email không được để trống!!!!!!!'
             }
             res.redirect('back')
@@ -96,7 +96,7 @@ class UsersController {
             if(user){
                req.session.message ={
                 type: 'danger',
-                intro: 'Thông báo lỗi!',
+                intro: 'Lỗi!',
                 message: 'Email này đã được sử dụng!!!!!!!'
             }
             res.redirect('back')

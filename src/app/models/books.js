@@ -17,16 +17,17 @@ const Book = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    declaim: {
+    declaim:[{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
-    },
+    }] ,
     email:{
         type: String,
         ref: 'User'
     }
    
-}, {
+},{ usePushEach: true}
+, {
     timestamps: true,
 });
 

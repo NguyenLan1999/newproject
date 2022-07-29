@@ -3,13 +3,13 @@ const Book = require('../models/books');
 const Comment = require('../models/comments');
 const { mongooseToObject } = require('../../util/mongoose');
 const { Result } = require('express-validator');
-const { Console } = require('console');
+
 
 
 class DetailBookController {
     show(req, res, next) {
         const email = req.signedCookies.email
-       
+        //const records = []
          var isTrue = true
          
             Book.findOne({ slug: req.params.slug })
@@ -17,7 +17,8 @@ class DetailBookController {
            
             
             .then((book) => {
-                console.log(book.declaim)
+                //console.log(records)
+                //console.log(book.declaim)
                 if(book.email === email){
                     
                     res.render('detailbook/show', { 
@@ -38,6 +39,7 @@ class DetailBookController {
             })
 
             .catch(next)
+
            
     }
 
@@ -222,19 +224,12 @@ class DetailBookController {
         const email = req.signedCookies.email;
         const bookId = req.params.id;
         const content = req.body.content;
-        // if(!email){
-        //     req.session.message ={
-        //         type: 'danger',
-        //         intro: 'Thông báo lỗi!',
-        //         message: 'Bạn chưa đăng nhập vào hệ thống!!!!'
-        //     }
-        //     res.redirect('back')
-        // }
+       
         if(email){
             if(content){
                 const comment = new Comment({
                     email: email,
-                    bookId: bookId,
+                    // bookId: bookId,
                     content: content
                 });
                 comment.save((err, result)=>{

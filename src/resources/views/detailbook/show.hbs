@@ -55,7 +55,10 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            {{book.declaim}}
+            {{#each book.declaim}}
+            <strong>{{this.email}}</strong>:  {{this.content}}
+            <br>
+            {{/each}}
         </div>
     </div>
 </div>
