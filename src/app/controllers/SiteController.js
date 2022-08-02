@@ -16,6 +16,8 @@ class SiteController {
                 });
             })
             .catch(next);
+
+        //res.render('home')
     }
 
     search(req, res, next) {

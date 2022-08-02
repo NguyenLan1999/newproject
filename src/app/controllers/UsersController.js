@@ -44,7 +44,7 @@ class UsersController {
         .then(user =>{
             if(user){
                res.cookie('email', user.email, {signed: true})
-               res.cookie('_id', user._id, {signed: true})
+               //res.cookie('_id', user._id, {signed: true})
                req.session.message ={
                 type: 'success',
                 intro: 'Thông báo!',
@@ -70,7 +70,7 @@ class UsersController {
         res.render('user/register')
     }
     postRegister(req, res, next){
-        var sessionId = req.signedCookies.sessionId;
+        //var sessionId = req.signedCookies.sessionId;
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
@@ -126,8 +126,8 @@ class UsersController {
     view(req, res, next){
         const email = req.signedCookies.email
         const id = req.signedCookies._id
-        User.findById(id)
-        //User.findOne({email: email})
+        //User.findById(id)
+        User.findOne({email: email})
         .then(user=>{
             res.render('user/view', {user : mongooseToObject(user), email: email})
         })
@@ -138,8 +138,8 @@ class UsersController {
     edit(req, res,next){
         const id = req.signedCookies._id
         const email = req.signedCookies.email
-        //User.findOne({email: email})
-        User.findById(id)
+        User.findOne({email: email})
+        //User.findById(id)
         .then(user=>{
             res.render('user/viewEdit', {
                 user: mongooseToObject(user),
@@ -195,6 +195,12 @@ class UsersController {
             res.redirect('/user/view')
         })
         .catch(next)
+    }
+
+    logout(res, req, next){
+       res.clearCookie('email');
+       res.redirect('/')
+        
     }
  
 }

@@ -4,6 +4,8 @@ const router = express.Router();
 const usersController = require('../app/controllers/UsersController');
 const users = require('../app/models/users');
 
+router.post('/logout', usersController.logout);
+router.get('/logout', usersController.logout);
 router.get('/edit', usersController.edit);
 router.put('/edit', usersController.postEdit);
 router.get('/view', usersController.view);

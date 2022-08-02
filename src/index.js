@@ -34,15 +34,16 @@ app.use(express.json());
 app.use(methodOverride('_method'))
 app.use(flash());
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser('secret'));
-app.use(cookieParser())
+
 app.use(middleware.session)
 app.use(session({cookie: {maxAge: null}}))
 
 app.use((req, res, next)=>{
     res.locals.message= req.session.message;
+ //   res.locals.user = req.user
     delete req.session.message;
     next()
 })

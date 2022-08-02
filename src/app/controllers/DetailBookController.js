@@ -65,12 +65,12 @@ class DetailBookController {
         const author = req.body.author
         const introduce= req.body.introduce
         const description = req.body.description
-        const img = req.file
+        var img = req.file
 
         if(name){
             if(img){
                 img = img.path.split('\\').slice(2).join('/')
-                const book = new Book({
+                let book = new Book({
                     name: name,
                     author: author,
                     description: description,
@@ -90,7 +90,7 @@ class DetailBookController {
     
                     })
             }else{
-                const book = new Book({
+                let book = new Book({
                     name: name,
                     author: author,
                     description: description,
@@ -130,7 +130,7 @@ class DetailBookController {
 
         const email = req.signedCookies.email
         //const id= req.signedCookies._id
-        Book.findById(req.params.id)
+        Book.findById(req.query.id)
         .then((book)=>{
            
                 res.render('detailbook/edit', { book: mongooseToObject(book),  email: email })
@@ -144,11 +144,13 @@ class DetailBookController {
         //const id= req.signedCookies._id
         var img = req.body.img
         if(img){
+            img = img.path.split('\\').slice(2).join('/')
             Book.updateOne({ _id: req.params.id }, {
                 name: req.body.name,
                 author: req.body.author,
                 description: req.body.description,
                 introduce: req.body.introduce,
+                img: img,
                 email: email,
             })
                     .then(()=> {
@@ -160,13 +162,13 @@ class DetailBookController {
                         res.redirect('/')})
                     .catch(next)
         }else{
-            img = img.path.split('\\').slice(2).join('/')
+            
             Book.updateOne({ _id: req.params.id }, {
                 name: req.body.name,
                 author: req.body.author,
                 description: req.body.description,
                 introduce: req.body.introduce,
-                img: img,
+                
                 email: email,
             })
                     .then(()=> {
